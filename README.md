@@ -43,7 +43,7 @@
 
 	$ ./builder.sh image
 
-var/image.img が生成されます。(2GiB)。[Balana Etcherなどのイメージ書込ソフト](https://www.balena.io/etcher/)を利用してMicroSDに書き込んで下さい。起動したら、以下のコマンドでファイルシステムを拡張してください。
+var/image.img が生成されます。[Balana Etcherなどのイメージ書込ソフト](https://www.balena.io/etcher/)を利用してMicroSDに書き込んで下さい。起動したら、以下のコマンドでファイルシステムを拡張してください。
 
 	$ sudo raspi-config --expand-rootfs
 
