@@ -7,7 +7,7 @@
 * dhcp有効
 * vim, ntpd, sudo
 * rootユーザのパスワードはなし
-* adminユーザのパスワードは debian
+* **adminユーザ** のパスワードは **debian**
 * adminユーザはsudoでrootになることが可能
 
 # 構築済みイメージを使用する
@@ -15,6 +15,8 @@
 [Release](https://github.com/mamemomonga/rpi-debian-buster/releases/) ページから rpi-buster-vX.X.X.img.xz をダウンロードし、[Balana Etcherなどのイメージ書込ソフト](https://www.balena.io/etcher/)を利用してMicroSDに書き込んで下さい。起動したら、以下のコマンドでファイルシステムを拡張してください。
 
 	$ sudo raspi-config --expand-rootfs
+
+# 自分で構築する
 
 ## 構築環境
 
@@ -54,3 +56,4 @@ var/image.img が生成されます。イメージは先述の方法でMicroSD�
 # 参考文献
 
 [cdebootstrap で Raspberry Pi 4 用 Debian Buster arm64 環境を作る](https://www.manabii.info/2020/05/making-debian-bister-arm64-64bit-for-raspberry-pi-by-cdebootstrap.html)
+
