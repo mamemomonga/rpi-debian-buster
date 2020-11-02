@@ -1,6 +1,7 @@
 # Raspberry Pi3, Ri4 向け Debian10 aarch64 ビルドツール
 
 * Raspberry Pi3,Pi4 用
+* ヘッドレスサーバ(モニタ・キーボードを接続しない利用)向けに調整
 * GPUメモリ16MB
 * シリアルコンソール有効(115200 baud)
 * sshd有効
