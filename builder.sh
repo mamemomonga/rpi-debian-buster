@@ -29,9 +29,9 @@ do_rootfs() {
 
 do_setup() {
 
-	if [ -e 'authorized_keys' ]; then
+	if [ -e "$BASEDIR/authorized_keys" ]; then
 		mkdir -p "$ROOTFS/home/admin/.ssh"
-		cp authorized_keys "$ROOTFS/home/admin/.ssh/authorized_keys"
+		cp "$BASEDIR/authorized_keys" "$ROOTFS/home/admin/.ssh/authorized_keys"
 	fi
 	chroot $ROOTFS /bin/bash << 'END_OF_CHROOT'
 
@@ -248,7 +248,11 @@ w" | fdisk $drive
 do_image() {
 	local filename="$BASEDIR/var/image.img"
 	if [ -e $filename ]; then rm -f $filename; fi
-	fallocate -l 2G $filename
+
+	# 作成予定サイズ+256MB
+	local size=$( expr $(sudo du -sb $ROOTFS | awk '{print $1}') '+' '(' 512 '*' 1024 '*' 1024 ')' )
+
+	fallocate  -l $size $filename
 echo "n
 p
 1

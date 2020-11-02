@@ -1,6 +1,6 @@
 # Raspberry Pi3, Ri4 向け Debian10 aarch64 ビルドツール
 
-* Raspberry Pi3用
+* Raspberry Pi3,Pi4 用
 * GPUメモリ16MB
 * シリアルコンソール有効(115200 baud)
 * sshd有効
@@ -43,7 +43,9 @@
 
 	$ ./builder.sh image
 
-var/image.img が生成されます。(2GiB)
+var/image.img が生成されます。(2GiB)。[Balana Etcherなどのイメージ書込ソフト](https://www.balena.io/etcher/)を利用してMicroSDに書き込んで下さい。起動したら、以下のコマンドでファイルシステムを拡張してください。
+
+	$ sudo raspi-config --expand-rootfs
 
 # 参考文献
 
