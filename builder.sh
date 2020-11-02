@@ -18,23 +18,22 @@ do_apt() {
 }
 
 do_rootfs() {
-	mkdir -p $rootfs
+	mkdir -p $ROOTFS
 	cdebootstrap \
 	  --arch=arm64 \
 	  -f standard \
 	  --foreign buster \
 	  --include=ntp,lvm2,openssh-server,net-tools \
-	  -v $rootfs
+	  -v $ROOTFS
 }
 
 do_setup() {
-	local rootfs="$BASEDIR/rootfs"
 
 	if [ -e 'authorized_keys' ]; then
-		mkdir -p "$rootfs/home/admin/.ssh"
-		cp authorized_keys "$rootfs/home/admin/.ssh/authorized_keys"
+		mkdir -p "$ROOTFS/home/admin/.ssh"
+		cp authorized_keys "$ROOTFS/home/admin/.ssh/authorized_keys"
 	fi
-	chroot $rootfs /bin/bash << 'END_OF_CHROOT'
+	chroot $ROOTFS /bin/bash << 'END_OF_CHROOT'
 
 # セットアップ時のロケール
 export LC_ALL=C
@@ -210,7 +209,6 @@ END_OF_CHROOT
 
 do_install() {
 	local drive=$1
-	local rootfs="$BASEDIR/rootfs"
 
 	echo "Install Disk: $drive"
 	read -p "Ready? (y/N): " yn; case "$yn" in [yY]*) ;; *) echo "abort"; exit 1;; esac
@@ -239,7 +237,7 @@ w" | fdisk $drive
 	mount $drive'2' /mnt
 	mkdir -p /mnt/boot
 	mount $drive'1' /mnt/boot
-	tar cC $rootfs . | tar xvpC /mnt
+	tar cC $ROOTFS . | tar xvpC /mnt
 	echo "sync...."
 	sync
 	umount /mnt/boot
