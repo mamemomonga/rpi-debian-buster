@@ -29,6 +29,8 @@ do_rootfs() {
 
 do_setup() {
 
+	mkdir -p "$ROOTFS/home/admin"
+
 	if [ -e "$BASEDIR/authorized_keys" ]; then
 		mkdir -p "$ROOTFS/home/admin/.ssh"
 		cp "$BASEDIR/authorized_keys" "$ROOTFS/home/admin/.ssh/authorized_keys"
@@ -102,15 +104,20 @@ echo 'Asia/Tokyo' > /etc/timezone
 apt-get install -y \
 	raspi-config \
 	libraspberrypi-bin \
-	fake-hwclock \
 	raspberrypi-bootloader \
 	raspberrypi-kernel \
+	fake-hwclock \
 	dosfstools \
 	e2fsck-static \
 	build-essential \
 	sudo \
+	ntp \
 	vim \
-	ntp
+	git-core \
+	jq \
+	curl \
+	wget \
+	make
 
 # カーネル
 NEWKERNEL=$(ls /lib/modules | grep v8)
@@ -150,8 +157,10 @@ PermitRootLogin no
 EOS
 
 # adminユーザ
-
 useradd -m -s /bin/bash admin
+chown -R admin:admin /home/admin
+chmod 700 /home/admin
+
 chown -R admin:admin /home/admin/.ssh
 chmod 700 /home/admin/.ssh
 chmod 600 /home/admin/.ssh/authorized_keys
