@@ -39,6 +39,12 @@
 
 	$ ./builder.sh install /dev/sdX
 
+### イメージの作成
+
+	$ ./builder.sh image
+
+var/image.img が生成されます。(2GiB)
+
 # 参考文献
 
 [cdebootstrap で Raspberry Pi 4 用 Debian Buster arm64 環境を作る](https://www.manabii.info/2020/05/making-debian-bister-arm64-64bit-for-raspberry-pi-by-cdebootstrap.html)

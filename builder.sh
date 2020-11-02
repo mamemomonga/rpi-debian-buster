@@ -10,7 +10,7 @@ set -eu
 #   ./builder.sh install /dev/sdX 特定のディスクへインストール(元のディスクは消えます!)
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-COMMANDS="apt rootfs setup install"
+COMMANDS="apt rootfs setup install image"
 ROOTFS="$BASEDIR/var/rootfs"
 
 do_apt() {
@@ -243,6 +243,44 @@ w" | fdisk $drive
 	umount /mnt/boot
 	umount /mnt
 
+}
+
+do_image() {
+	local filename="$BASEDIR/var/image.img"
+	if [ -e $filename ]; then rm -f $filename; fi
+	fallocate -l 2G $filename
+echo "n
+p
+1
+
++256M
+t
+b
+n
+p
+
+
+
+a
+1
+w" | fdisk $filename
+	echo "p\nq\n" | fdisk $filename
+
+	local loopback=$(losetup -f -P --show $filename)
+	echo "Loopback Device: $loopback"
+
+	mkfs.vfat $loopback'p1'
+	mkfs.ext4 $loopback'p2'
+
+	mount $loopback'p2' /mnt
+	mkdir -p /mnt/boot
+	mount $loopback'p1' /mnt/boot
+	tar cC $ROOTFS . | tar xvpC /mnt
+	echo "sync...."
+	sync
+	umount /mnt/boot
+	umount /mnt
+	losetup -d $loopback
 }
 
 run() {
