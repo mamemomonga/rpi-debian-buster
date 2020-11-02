@@ -9,13 +9,19 @@
 * rootユーザのパスワードはなし
 * adminユーザのパスワードは debian
 * adminユーザはsudoでrootになることが可能
-* カレントディレクトリに authorized\_keys ファイルがある場合は、それをadminユーザのauthorized\_keysとして登録します
+
+# 構築済みイメージを使用する
+
+[Release](https://github.com/mamemomonga/rpi-debian-buster/releases/) ページから rpi-buster-vX.X.X.img.xz をダウンロードし、[Balana Etcherなどのイメージ書込ソフト](https://www.balena.io/etcher/)を利用してMicroSDに書き込んで下さい。起動したら、以下のコマンドでファイルシステムを拡張してください。
+
+	$ sudo raspi-config --expand-rootfs
 
 ## 構築環境
 
 * Debian10 amd64
 * /mnt を一時的なマウントポイントとして利用します
 * sudoでrootユーザになれる必要がある
+* カレントディレクトリに authorized\_keys ファイルがある場合は、それをadminユーザのauthorized\_keysとして登録します
 
 ## コマンド一覧
 
@@ -43,9 +49,7 @@
 
 	$ ./builder.sh image
 
-var/image.img が生成されます。[Balana Etcherなどのイメージ書込ソフト](https://www.balena.io/etcher/)を利用してMicroSDに書き込んで下さい。起動したら、以下のコマンドでファイルシステムを拡張してください。
-
-	$ sudo raspi-config --expand-rootfs
+var/image.img が生成されます。イメージは先述の方法でMicroSDに書き込んで起動し、ファイルシステムを拡張してください。
 
 # 参考文献
 
