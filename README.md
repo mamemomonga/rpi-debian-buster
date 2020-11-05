@@ -1,4 +1,4 @@
-# Raspberry Pi3, Ri4 向け Debian10 aarch64 ビルドツール
+# Raspberry Pi3, Ri4 向け Debian10 arm64 ビルドツール
 
 * Raspberry Pi3,Pi4 用
 * ヘッドレスサーバ(モニタ・キーボードを接続しない利用)向けに調整
@@ -8,7 +8,7 @@
 * dhcp有効
 * vim, ntpd, sudo
 * rootユーザのパスワードはなし
-* **adminユーザ** のパスワードは **debian**
+* **admin** ユーザのパスワードは **debian**
 * adminユーザはsudoでrootになることが可能
 
 # 構築済みイメージを使用する
